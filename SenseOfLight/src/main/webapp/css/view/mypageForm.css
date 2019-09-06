@@ -1,0 +1,184 @@
+@CHARSET "UTF-8";
+
+* {
+	margin: 0 auto;
+	padding: 0;
+	font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
+}
+
+#order_wrap {
+	width: 1350px;
+	height: auto;
+}
+
+#mypage_tabbox{
+	width: 950px;
+	height: 50px;
+	display: table;
+	border: 0.5px solid #d9d9d9;
+	border-collapse: collapse;
+	color: #807f7f;
+	font-size: 13px;
+	line-height: 50px;
+}
+
+#mypage_tabbox > div{
+	display: table-row;
+	width: 950px;
+	height: 50px;
+}
+
+#mypage_tabbox > div > div{
+	display: table-cell;
+	width: 150px;
+	border: 0.5px solid #d9d9d9;
+}
+
+#mypage_message{
+	width: 1349px;
+	height: 70px;
+	border: 0.5px solid #d9d9d9;
+	padding: 10px 0;
+	
+}
+#mypage_message > :FIRST-CHILD{
+	width: 100px;
+	height: 70px;
+	display: inline-block;
+	float: left;
+	border-right: 0.5px solid #d9d9d9;
+}
+
+#mypage_message > :FIRST-CHILD > img{
+	width: 70px;
+	height: 70px;
+}
+
+#mypage_message > :LAST-CHILD {
+	width: 800px;
+	line-height:70px;
+	display: inline-block;
+	height: 70px;
+	float: left;
+	text-align:left;
+	font-size: 13px;
+	padding-left: 10px;
+}
+
+#mileage_box{
+	width:1346px;
+	height:100px;
+	border: 2px solid #e8e8e8;
+	border-radius: 10px;
+	padding: 20px 0;
+}
+
+#mileage_box > ul{
+	list-style: none;
+}
+
+#mileage_box > ul > li{
+	float: left;
+	margin: 5px 0;
+	padding: 0 45px;
+	width: 582px;
+	height: 20px;
+	font-size: 12px;
+	text-align: left;
+}
+
+#mileage_box > ul > li > strong{
+	font-weight: normal;
+	margin: 0 15px;
+}
+
+#mileage_box > ul > li > :FIRST-CHILD{
+	width: 218px;
+	display: inline-block;	
+}
+#mileage_box > ul > li > input[type=button]{
+	display: inline-block;
+	float: right;
+	width: 40px;
+	background-color: white;
+	border: 0.5px solid #807f7f;
+	border-radius: 2px;
+	display: inline-block;
+	cursor: pointer;
+}
+#mileage_box > ul > li > :LAST-CHILD{
+	width: 260px;
+	display: inline-block;
+	text-align: right;
+}
+
+#mileage_box > ul > li > strong> img{
+	width: 15px;
+	height: 15px;
+	float: left;
+	margin: 2px;
+}
+
+#order_status{
+	width: 1350px;
+	height: auto;
+	border: 0.5px solid #e8e8e8;
+	border-radius: 10px;
+}
+
+#order_status > :FIRST-CHILD {
+	padding: 11px 21px;
+	height: 40px;
+	text-align: left;
+	border-bottom: 0.5px solid #e8e8e8;
+	line-height: 38px;
+}
+#order_status > :FIRST-CHILD > h3{
+	font-weight: normal;
+	display: inline-block;
+}
+#order_status > :FIRST-CHILD > span{
+	font-size: 11px;
+	color: #807f7f;
+	display: inline-block;
+}
+
+#order_status > :LAST-CHILD{
+	height:55px;
+	padding: 19px 0;
+	display: inline-block;
+}
+#order_status > :LAST-CHILD > ul{
+	list-style: none;
+	float: left;
+}
+#order_status > :LAST-CHILD > :FIRST-CHILD{
+	width: 1048px;
+}
+#order_status > :LAST-CHILD > :FIRST-CHILD > li > strong{
+	display: inline-block;
+	width: 262px;
+}
+
+#order_status > :LAST-CHILD > :FIRST-CHILD > li > :FIRST-CHILD{
+	font-size: 14px;
+	font-weight: normal;
+}
+#order_status > :LAST-CHILD > :FIRST-CHILD > li > :LAST-CHILD{
+	font-size: 21px;
+	color: #807f7f;
+}
+
+#order_status > :LAST-CHILD > :FIRST-CHILD > li{
+	width: 261.5px;
+	height: 55px;
+	float: left;
+	border-right: 0.5px solid #e8e8e8;
+}
+
+#order_status > :LAST-CHILD > :LAST-CHILD{
+	width: 262px;
+}
+#order_status > :LAST-CHILD > :LAST-CHILD > li{
+	font-size: 12px;
+}

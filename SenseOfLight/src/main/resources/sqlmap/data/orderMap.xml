@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="classpath:/sqlmap/data/orderMap">
+	<resultMap id="selectByOrderResult" type="orderVo">
+		<result property="productNum" column="PRODUCT_NUM" />
+		<result property="productCount" column="PRODUCT_COUNT" />
+		<result property="memId" column="MEM_ID" />
+		<result property="productName" column="PRODUCT_NAME" />
+		<result property="productAccount" column="PRODUCT_ACCOUNT" />
+		<result property="productPrice" column="PRODUCT_PRICE" />
+		<result property="productDiscount" column="PRODUCT_DISCOUNT" />
+		<result property="productOption1" column="PRODUCT_OPTION1" />
+		<result property="productOption2" column="PRODUCT_OPTION2" />
+		<result property="imgList" column="IMG_LIST" />
+		<result property="orderDtlnum" column="ORDER_DTLNUM" />
+	</resultMap>
+
+	<resultMap id="selectByOrderBuyList" type="orderVo">
+		<result property="orderNum" column="ORDER_NUM"/>
+		<result property="orderDtlnum" column="ORDER_DTLNUM"/>
+		<result property="productNum" column="PRODUCT_NUM"/>
+		<result property="productCount" column="PRODUCT_COUNT"/>
+		<result property="productName" column="PRODUCT_NAME"/>
+		<result property="productAccount" column="PRODUCT_ACCOUNT"/>
+		<result property="productOption1" column="PRODUCT_OPTION1"/>
+		<result property="productOption2" column="PRODUCT_OPTION2"/>
+		<result property="productPrice" column="PRODUCT_AMOUNT"/>
+		<result property="imgList" column="IMG_LIST"/>
+		<result property="codeValue" column="CODE_VALUE"/>
+	</resultMap>
+	
+	<!-- 테이블 조건 컬럼 순서 -->
+	<select id="selectOrderList" parameterType="java.util.Map"
+		resultMap="selectByOrderResult" resultType="java.util.HashMap">
+		select
+		A.PRODUCT_NUM,
+		A.PRODUCT_NAME,
+		A.PRODUCT_ACCOUNT,
+		A.PRODUCT_PRICE,
+		A.PRODUCT_OPTION1,
+		A.PRODUCT_OPTION2,
+		A.PRODUCT_DISCOUNT,
+		B.IMG_LIST
+		from
+		PRODUCT_LIST as A
+		inner join IMG as B on(A.PRODUCT_NUM = B.PRODUCT_NUM
+		<choose>
+			<when test="list.size > 1">
+				AND
+				<foreach collection="list" item="item" open="(" close=")"
+					separator="or">
+					A.PRODUCT_NUM = #{item.productNum}
+				</foreach>
+				);
+			</when>
+			<otherwise>
+				<foreach collection="list" item="item">
+					AND A.PRODUCT_NUM =
+					#{item.productNum});
+				</foreach>
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	
+	<insert id="insertOrders" parameterType="orderVo" >
+		<selectKey keyProperty="orderNum" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+		insert into ORDERS(
+		ORDER_NAME,
+		ORDER_POST,
+		ORDER_ADDR1,
+		ORDER_ADDR2,
+		ORDER_LANDLINE,
+		ORDER_PHONE,
+		ORDER_EMAIL,
+		ORDER_DATE,
+		RECIPIENT_NAME,
+		RECIPIENT_POST,
+		RECIPIENT_ADDR1,
+		RECIPIENT_ADDR2,
+		RECIPIENT_LANDLINE,
+		RECIPIENT_PHONE,
+		RECIPIENT_MESSAGE) 
+		values (
+		#{orderName},
+		#{orderPaddr},
+		#{orderDaddr},
+		#{orderRaddr},
+		#{orderLandline},
+		#{orderPhone},
+		#{orderEmail},
+		now(),
+		#{recipientName},
+		#{recipientPaddr},
+		#{recipientDaddr},
+		#{recipientRaddr},
+		#{recipientLandline},
+		#{recipientPhone},
+		#{recipientMessage}
+		);
+	</insert>
+
+	<insert id="insertOrderDetails" parameterType="java.util.Map">
+		<selectKey keyProperty="orderDtlnum" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+		insert into ORDER_DETAILS(
+		ORDER_NUM,
+		MEM_ID,
+		PRODUCT_NUM,
+		PRODUCT_COUNT,
+		PRODUCT_AMOUNT
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(#{orderNum},
+			#{memId},
+			#{item.productNum},
+			#{item.productCount},
+			#{item.productPriceTotal})
+		</foreach>
+	</insert>
+	
+	
+	<insert id="insertOrderStatus" parameterType="java.util.Map" >
+		insert into ORDER_STATUS(
+		ORDER_NUM,
+		ORDER_DTLNUM,
+		TIMESTAMP,
+		CODE_ID,
+		GROUP_ID
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(#{orderNum},
+			#{item.orderDtlnum},
+			now(),
+			'001',
+			'O01')
+		</foreach>
+	</insert>
+	
+	<select id="selectOrderDtlNum" parameterType="int" 
+		resultMap="selectByOrderResult" resultType="java.util.HashMap">
+	select ORDER_DTLNUM from ORDER_DETAILS where ORDER_NUM = #{orderNum};
+	</select>
+	
+
+	<select id="selectOrderBuyList" parameterType="java.util.Map" 
+	resultMap="selectByOrderBuyList" resultType="java.util.HashMap">
+		<!-- select 
+		a.ORDER_DTLNUM, 
+		a.ORDER_NUM,
+		b.PRODUCT_COUNT,
+		b.PRODUCT_NUM,
+		b.PRODUCT_AMOUNT,
+		c.product_name,
+		c.product_account, 
+		c.product_option1, 
+		c.product_option2,
+		d.img_list,
+		e.CODE_VALUE
+		from ORDER_STATUS a inner join ORDER_DETAILS b inner join PRODUCT_LIST c inner join IMG d inner join COMMON_CODE e
+		on a.ORDER_DTLNUM = b.ORDER_DTLNUM
+		and b.PRODUCT_NUM = c.PRODUCT_NUM 
+		and b.PRODUCT_NUM = d.PRODUCT_NUM
+		and (a.CODE_ID = e.CODE_ID and a.GROUP_ID = e.GROUP_ID)
+		where c.PRODUCT_NUM = d.PRODUCT_NUM and c.PRODUCT_NUM 
+		in (select b.PRODUCT_NUM from ORDER_DETAILS b where b.ORDER_DTLNUM 
+		in (select ORDER_DTLNUM from ORDER_STATUS a 
+		<![CDATA[ where TIMESTAMP  >= #{fromDate} and TIMESTAMP < #{toDate}]]>) and b.MEM_ID = #{memId})
+		order by a.ORDER_DTLNUM desc; -->
+		
+		
+		
+		select 
+		a.CODE_VALUE,
+		b.ORDER_NUM,
+		b.ORDER_DTLNUM,
+		b.PRODUCT_NUM, 
+		b.PRODUCT_AMOUNT, 
+		b.PRODUCT_COUNT,
+		c.PRODUCT_NAME,
+		c.PRODUCT_ACCOUNT,
+		c.PRODUCT_OPTION1,
+		c.PRODUCT_OPTION2,
+		d.IMG_LIST
+		from COMMON_CODE a ,(ORDER_DETAILS b inner join PRODUCT_LIST c inner join IMG d on b.PRODUCT_NUM = c.PRODUCT_NUM and b.PRODUCT_NUM = d.PRODUCT_NUM)
+		where (b.ORDER_DTLNUM, a.CODE_ID, a.GROUP_ID) 
+		in(select ORDER_DTLNUM, CODE_ID, GROUP_ID from ORDER_STATUS <![CDATA[ where TIMESTAMP > #{fromDate} and TIMESTAMP <#{toDate} ]]>) 
+		and b.MEM_ID = #{memId} order by B.ORDER_DTLNUM DESC; 
+	</select>
+	
+	<select id="selectTotalCount" parameterType="java.util.Map" resultType="int">
+		select count(ORDER_DTLNUM) 
+		from ORDER_DETAILS 
+		where ORDER_DTLNUM 
+		in (select ORDER_DTLNUM 
+		from ORDER_STATUS
+		<![CDATA[ 
+		where TIMESTAMP >= #{criteria.fromDate} AND TIMESTAMP < #{criteria.toDate}]]>) 
+		and MEM_ID = #{memId};
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="classpath:/sqlmap/data/fileMap">
+	<resultMap id="selectByFileResult" type="fileVo">
+		<result property="productNum" column="PRODUCT_NUM" />
+		<result property="imgList" column="IMG_LIST" />
+		<result property="imgDetail" column="IMG_DETAIL" />
+		<result property="imgAccount" column="IMG_ACCOUNT" />
+		<result property="imgInfo" column="IMG_INFO" />
+		<result property="productName" column="PRODUCT_NAME" />
+		<result property="productAccount" column="PRODUCT_ACCOUNT" />
+		<result property="productPrice" column="PRODUCT_PRICE" />
+		<result property="productOption1" column="PRODUCT_OPTION1" />
+		<result property="productOption2" column="PRODUCT_OPTION2" />
+		<result property="productDiscount" column="PRODUCT_DISCOUNT" />
+		<result property="codeValue" column="CODE_VALUE" />
+		<result property="productCount" column="PRODUCT_COUNT" />
+	</resultMap>
+	<!-- light.domain.MemberInfo -->
+
+	<select id="selectGroupFile" parameterType="String" resultType="java.util.HashMap"
+		resultMap="selectByFileResult">
+		select b.product_num, b.img_list, b.img_detail,
+		b.img_account, b.img_info,
+		c.product_name, c.product_account,
+		c.product_price, c.product_option1,
+		c.product_option2,a.code_value
+		from sol_db.common_code as a
+		inner join sol_db.img as b on(a.group_id =
+		'P01' and a.code_id = #{product} and a.code_id = b.code_id)
+		inner join
+		sol_db.product_list as c on(b.product_num = c.product_num);
+	</select>
+
+
+	<select id="selectAllFile" resultType="java.util.HashMap"
+		resultMap="selectByFileResult">
+		select b.product_num, b.img_list, b.img_detail, b.img_account,
+		b.img_info,
+		c.product_name, c.product_account, c.product_price,
+		c.product_option1,
+		c.product_option2, c.product_discount ,a.code_value
+		from
+		sol_db.common_code as a
+		inner join sol_db.img as b on(a.group_id =
+		'P01'
+		<choose>
+			<when test="code_list.size != 0">
+				and b.code_id in
+				<foreach collection="code_list" item="item" index="index"
+					separator="," open="(" close=")">
+					#{item}
+				</foreach>
+			</when>
+			
+		</choose>
+		and a.code_id = b.code_id )
+		inner join sol_db.product_list as c
+		on(b.product_num = c.product_num);
+	</select>
+
+
+	<select id="selectFile" parameterType="String" resultType="java.util.HashMap"
+		resultMap="selectByFileResult">
+		select a.product_num, a.img_list, a.img_detail, a.img_account, a.img_info,
+		b.product_name, b.product_account, b.product_price, b.product_option1,
+		b.product_option2, b.product_discount, c.code_value, d.PRODUCT_COUNT
+		from 
+      img as a
+		inner join product_list as b 
+		on (b.product_num = #{product} and a.product_num = b.product_num)
+		inner join common_code as c 
+		on (a.code_id = c.code_id and c.group_id= 'p01')
+      inner join stock as d
+      on (b.product_num = #{product} and b.product_num = d.product_num);
+	</select>
+
+	<select id="selectStockChk" parameterType="String" resultType="Integer">
+		<!-- select exists(select product_count from stock where product_num = #{productNum} )as isChk; -->
+		select PRODUCT_COUNT from STOCK where PRODUCT_NUM = #{productNum};
+	</select>
+</mapper>

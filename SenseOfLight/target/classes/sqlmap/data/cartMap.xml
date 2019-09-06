@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="classpath:/sqlmap/data/cartMap">
+	<resultMap id="selectByCartResult" type="cartVo">
+		<result property="productNum" column="PRODUCT_NUM" />
+		<result property="productCount" column="PRODUCT_COUNT" />
+		<result property="memId" column="MEM_ID" />
+		<result property="productName" column="PRODUCT_NAME" />
+		<result property="productAccount" column="PRODUCT_ACCOUNT" />
+		<result property="productPrice" column="PRODUCT_PRICE" />
+		<result property="productDiscount" column="PRODUCT_DISCOUNT" />
+		<result property="productOption1" column="PRODUCT_OPTION1" />
+		<result property="productOption2" column="PRODUCT_OPTION2" />
+		<result property="imgList" column="IMG_LIST" />
+	</resultMap>
+
+	<!-- 테이블 조건 컬럼 순서 -->
+	<select id="selectCartList" parameterType="String" resultMap="selectByCartResult"
+		resultType="java.util.HashMap">
+		select A.PRODUCT_NUM,
+		A.PRODUCT_COUNT,
+		A.MEM_ID,
+		B.PRODUCT_NAME,
+		B.PRODUCT_ACCOUNT,
+		B.PRODUCT_PRICE,
+		B.PRODUCT_DISCOUNT,
+		B.PRODUCT_OPTION1,
+		B.PRODUCT_OPTION2,
+		C.IMG_LIST
+		from PRODUCT_CART AS A
+		inner JOIN PRODUCT_LIST AS B ON (A.PRODUCT_NUM = B.PRODUCT_NUM and A.mem_id = #{memId})
+		inner JOIN IMG AS C ON (A.PRODUCT_NUM = C.PRODUCT_NUM and A.mem_id = #{memId});
+	</select>
+	
+	<!-- insert into values ~ on duplicate key update를 이용하여 insert시 중복되는 유니크한 값이 있으면 update하도록 설정 -->
+	<!-- mysql은 자기자신의 값을 바로 사용할 수 없으므로 임시테이블을 이용하여 중복되는 유니크한 값을 출력하도록 변경 -->
+	<insert id="insertCart" parameterType="map">
+    	insert into PRODUCT_CART (CART_NUM, MEM_ID, PRODUCT_NUM, PRODUCT_COUNT) values (
+		(select CART_NUM from (select CART_NUM from PRODUCT_CART where MEM_ID = #{memId} and PRODUCT_NUM = #{productNum} limit 1) tmp),
+		#{memId}, 
+		#{productNum}, 
+		#{productCount})
+		on duplicate key update PRODUCT_COUNT= PRODUCT_COUNT + #{productCount};
+	</insert>
+	
+	<delete id="deleteCart">
+		delete from PRODUCT_CART where MEM_ID = #{memId}
+		<if test='!productNum[0].equals("all")'>
+    		<choose>
+				<when test="productNum.size > 1">
+				AND
+					<foreach collection="productNum" item="item"  open="(" close=")" separator="or">
+            			PRODUCT_NUM = #{item}
+        			</foreach>
+        		</when>
+    	    	<otherwise>
+	      			AND PRODUCT_NUM = #{productNum[0]}
+    			</otherwise>
+    		</choose>
+  		</if>
+	</delete>
+	
+	<update id="updateCart" parameterType="map">
+		update PRODUCT_CART set PRODUCT_COUNT = #{productCount} where MEM_ID = #{memId} and PRODUCT_NUM = #{productNum};
+	</update>
+
+</mapper>

@@ -1,0 +1,112 @@
+@CHARSET "UTF-8";
+
+
+* {
+	font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';	
+}
+
+body{
+	margin: 0;
+	padding: 0;
+}
+
+#product_wrap {
+	width: 1350px;
+	height: auto;
+	padding: 0;
+	margin: 0 auto;
+}
+
+#product_title{
+	width: 100%;
+	height: 120px;
+	text-align: left;
+	display: inline-block;
+	
+}
+
+#product_label{
+	font-size: 18px;
+	font-weight: bold;
+	padding-bottom: 20px;
+}
+
+#product_sub{
+	text-align: center;
+}
+#product_sub > ul{
+	width: 100%;
+	list-style: none;
+	/* display: block; */
+	display:inline-block; *display:inline; zoom:1;
+
+}
+
+#product_sub > ul > li{
+	float:left; 
+	margin-left:-1px; 
+	z-index:1;
+	width:24.8%;
+	height:40px;
+	padding: 0;
+	font-size: 12px;
+	display: table;
+}
+
+#product_sub > ul > li > div{
+	margin: 0 auto;
+	position: relative;
+	display: inline-block;
+	text-align: center;
+	line-height: 40px;
+	vertical-align: middle;
+	width: 90%;
+	height: 40px;
+	border: 1px solid #D8D8D8;
+}
+/* 가운데 공백 25씩 우측 공백 12.5px */
+
+.product_list{
+	width: 230px;
+	height: 420px;
+	display: inline-block;
+	margin: 0 42.7px 0 0;
+	margin-bottom: 40px;
+}
+
+.product_list > ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.product_list > ul > li{
+	width: 100%;
+	margin: 0;
+	
+}
+.product_list > ul > li > .product_name, .product_account, .product_price{
+	height: 40px;
+	text-align: left;
+	font-size: 12px;
+}
+
+.img_list {
+	height: 300px;
+}
+
+.product_name{
+	font-size: 13px;
+	font-weight: 500;
+}
+
+.product_account{
+	color: #ABABAB;
+	
+}
+
+.product_price{
+	color: #DB8383;
+}
+
+

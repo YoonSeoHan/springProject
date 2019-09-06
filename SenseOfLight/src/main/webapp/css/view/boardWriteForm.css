@@ -1,0 +1,295 @@
+@CHARSET "UTF-8";
+
+*{
+	margin: 0 auto;
+	padding: 0;
+	font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
+}
+
+img{
+	width: auto;
+	height: auto;
+}
+
+.content_title{
+	width:1350px;
+	text-align:left;
+	color: #999999;
+	font-size: 16px;
+}
+
+.content_title > div{
+	height: 45px;
+	color: #999999;
+	font-size: 14px;
+}
+
+.content_title > div > h2{
+	color:black;
+	
+}
+.content_title > div > img{
+	width: 45px;
+	height: 1px;
+	vertical-align: middle;
+}
+
+
+#write_wrap{
+	width: 1350px;
+	height: auto;
+}
+
+
+#write_wrap > #board_email, #board_writer ,#board_subject, #board_pwd{
+	width:1350px;
+	height: 50px;
+}
+
+#board_subject > div{
+	display: inline-block;
+	float: left;
+	text-align: left;
+	height: 50px;
+	border: 0.5px solid #5CD1E5;
+	border-bottom: 0;
+}
+
+#board_subject > :FIRST-CHILD{
+	width: 130px;
+	line-height: 50px;
+	font-size: 12px;
+	padding-left: 20px;
+	color: #353535;
+	border-right: 0;
+}
+
+#board_subject > :LAST-CHILD{
+	width: 1188.5px;
+	padding-left: 10px;
+}
+
+#board_subject > :LAST-CHILD > input{
+	margin-top: 14px;
+	width: 400px;
+}
+
+
+
+/* ========================================= */
+
+#board_writer > div{
+	display: inline-block;
+	float: left;
+	text-align: left;
+	height: 50px;
+	border: 0.5px solid #5CD1E5;	
+	border-bottom: 0;
+}
+
+#board_writer > :FIRST-CHILD{
+	width: 130px;
+	line-height: 50px;
+	font-size: 12px;
+	padding-left: 20px;
+	color: #353535;
+	border-right: 0;
+}
+
+#board_writer > :LAST-CHILD{
+	width: 1188.5px;
+	padding-left: 10px;
+}
+
+#board_writer > :LAST-CHILD > input{
+	margin-top: 14px;
+	width: 120px;
+}
+
+
+/* ========================================= */
+
+#board_email > div{
+	display: inline-block;
+	float: left;
+	text-align: left;
+	height: 50px;
+	border: 0.5px solid #5CD1E5;	
+	border-bottom: 0;
+}
+
+#board_email > :FIRST-CHILD{
+	width: 130px;
+	line-height: 50px;
+	font-size: 12px;
+	padding-left: 20px;
+	color: #353535;
+	border-right: 0;
+}
+
+#board_email > :LAST-CHILD{
+	width: 1188.5px;
+	padding-left: 10px;
+}
+
+#board_email > :LAST-CHILD > input{
+	margin-top: 14px;
+	width: 120px;
+}
+
+
+
+/* ================================= */
+
+#board_content{
+	width: 1350px;
+	height: 400px;
+}
+
+#board_content > textarea {
+	width: 1350px;
+	height: 400px;
+}
+
+
+/* ================================= */
+
+/* #board_fileUpload{
+	height: 50px;
+}
+#board_fileUpload > div{
+	display: inline-block;
+	float: left;
+	text-align: left;
+	height: 50px;
+	border: 0.5px solid #5CD1E5;	
+}
+
+#board_fileUpload > :FIRST-CHILD{
+	width: 130px;
+	line-height: 50px;
+	font-size: 12px;
+	padding-left: 20px;
+	color: #353535;
+	border-right: 0;
+}
+
+#board_fileUpload > :LAST-CHILD{
+	width: 1188.5px;
+	padding-left: 10px;
+}
+
+#board_fileUpload > :LAST-CHILD > input{
+	margin-top: 14px;
+	width: 120px;
+}
+ */
+
+#board_action{
+	width: 1350px;
+	height: 70px;
+}
+
+#board_action > div{
+	display: inline-block;
+	margin-top: 10px;
+}
+
+#board_action > div > a{
+	width: 60px;
+	height: 30px;
+	font-size: 12px;
+	line-height: 30px;
+	color: white;
+}
+
+#board_insert :HOVER{
+	color:#8C8C8C;
+	background-color:white;
+	border: 0.5px solid #8C8C8C;
+	border-radius: 2px;
+}
+
+#board_action :FIRST-CHILD{
+	float: left;
+}
+
+#board_insert {
+	float: right;
+	display: block;
+	line-height: 30px;
+	outline: 0;
+	font-size: 12px;
+	border: 0;
+	cursor: pointer;
+	background-color: #8C8C8C;
+	color: white;
+	border-radius: 2px;
+}
+
+#board_update {
+	float: right;
+	display: block;
+	background-color: #8C8C8C;
+	border-radius: 2px;
+}
+
+#board_update > a{
+	color: white;
+}
+
+#board_delete {
+	float: right;	
+	margin-left: 10px;
+	border: 0.5px solid #8C8C8C;
+	border-radius: 2px;
+}
+
+
+#board_action > :FIRST-CHILD > a {
+	display: block;
+	color: black;
+	border: 0.5px solid black;
+	border-radius: 2px;
+}
+
+#board_action > :FIRST-CHILD :HOVER{
+	color: white;
+	background-color: #8C8C8C;
+	border: 0;
+}
+
+#board_action > :LAST-CHILD > input {
+	display: block;
+	color: white;
+	background-color: #8C8C8C;
+	border-radius: 2px;
+}
+
+#board_pwd > div{
+	display: inline-block;
+	float: left;
+	text-align: left;
+	height: 50px;
+	border: 0.5px solid #5CD1E5;
+}
+
+#board_pwd > :FIRST-CHILD{
+	width: 130px;
+	line-height: 50px;
+	font-size: 12px;
+	padding-left: 20px;
+	color: #353535;
+	border-right: 0;
+}
+
+#board_pwd > :LAST-CHILD{
+	width: 1188.5px;
+	padding-left: 10px;
+}
+
+#board_pwd > :LAST-CHILD > input{
+	margin-top: 14px;
+	width: 100px;
+}
+

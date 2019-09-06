@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+	
+<tiles-definitions>
+ 
+    <!-- 메뉴 표시 -->
+    <definition name="template" template="/WEB-INF/jsp/layout/template.jsp">
+        <put-attribute name="header" value="/WEB-INF/jsp/layout/headerLayout.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/layout/contentLayout.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/jsp/layout/footerLayout.jsp" />
+    </definition>
+ 	
+ 	<!-- Tiles를 사용(header, left, footer 포함) -->
+    <definition name="*.page" extends="template">
+        <put-attribute name="content" value="/WEB-INF/jsp/view/{1}.jsp" />
+    </definition>
+ 
+     <definition name="*/*.page" extends="template">
+         <put-attribute name="content" value="/WEB-INF/jsp/view/{1}/{2}.jsp" />
+     </definition>
+    
+    <definition name="*/*/*.page" extends="template">
+        <put-attribute name="content" value="/WEB-INF/jsp/view/{1}/{2}/{3}.jsp" />
+    </definition>
+    
+    
+    <!-- 메뉴 미표시 -->
+    <definition name="baseEmpty" template="/WEB-INF/jsp/layout/templateEmpty.jsp"/> 
+    
+    
+    <!-- Tiles를 사용(header, left, footer 제외) -->
+     <definition name="*.part" extends="baseEmpty">
+        <put-attribute name="content" value="/WEB-INF/jsp/view/{1}.jsp" />
+    </definition>
+ 
+<!--     <definition name="*/*.part" extends="baseEmpty">
+         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+     </definition>
+    
+    <definition name="*/*/*.part" extends="baseEmpty">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+    </definition>   -->      
+   
+</tiles-definitions>

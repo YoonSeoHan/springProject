@@ -1,0 +1,251 @@
+@CHARSET "UTF-8";
+
+*{
+	font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';	
+}
+
+
+font{
+	color: red;
+	font-weight: bold;
+}
+
+input{
+	outline: 0px;
+}
+
+#wrap{
+	margin: 0;
+	padding: 0;
+	width: 1350px;
+	height: 650px;
+	
+	display: inline-block;
+}
+
+.frm_title{
+	width: 100%;
+	height: 70px;
+	text-align: left;
+	display: inline-block;
+}
+
+.frm_title > label{
+	font-size: 18px;
+	font-weight: bold;
+}
+
+/* submit row */
+.frm_submit{
+	border-top : 1px solid #D8D8D8;
+	height: 100px;
+	text-align: center;
+}
+.frm_submit > input{
+	background-color: #F29661; 
+	margin-top:20px;
+	font-size: 16px;
+	color: white;
+	width: 150px;
+	height: 60px;
+	display:inline-block;
+	border: 0px;
+	cursor: pointer;
+
+}
+
+/* submit button */
+#frm_submit{
+	margin-top:50px;
+	width:150px;
+	height: 50px;
+	background-color: #F29661;
+	vertical-align: middle;
+	line-height: 40px;
+	text-align: center;
+	border: 0;
+	color: white;
+	
+}
+
+/* frm 공통 */
+
+.frm_row{
+	width: 100%;
+	height: 50px;
+	border-top: 1px solid #D8D8D8;
+	border-right: 1px solid #D8D8D8;
+	display: block;
+}
+
+.frm_list{
+	width: 140px;
+	float: left; /* 좌측으로 이동 */
+	text-align: left;
+	vertical-align: middle;/* 글자정렬 */
+	line-height: 50px; 
+	background-color: #D6F0FF;
+	
+	border-left: 1px solid #D8D8D8;
+	border-right: 1px solid #D8D8D8;
+	
+	font-size: 12.5px;
+}
+
+.frm_input{
+	width: 100%;
+	text-align: left;
+}
+
+.frm_input > input{
+	width: 150px;
+	height: 32px;
+	position: relative;
+	left: 10px;
+	top: 9px;
+	
+	
+	font-size: 12.5px;
+	border: 1px solid #D8D8D8;
+	border-radius: 5px;
+}
+
+.wLabel{
+	position:relative;
+	font-size: 12.5px;
+	margin-left:10px;
+	top:9.7px;
+}
+
+/* address */
+
+#frm_row_addr{
+	width: 100%;
+	height: 130px;
+	border-top: 1px solid #D8D8D8;
+	border-right: 1px solid #D8D8D8;
+	display: block;
+}
+
+#frm_list_addr{
+	width: 140px;
+	float: left; /* 좌측으로 이동 */
+	text-align: left;
+	vertical-align: middle;/* 글자정렬 */
+	line-height: 130px; 
+	background-color: #D6F0FF;
+	
+	border-left: 1px solid #D8D8D8;
+	border-right: 1px solid #D8D8D8;
+	
+	font-size: 12.5px;
+}
+
+#frm_input_addr{
+	width: 100%;
+	text-align: left;
+}
+
+#frm_input_addr ul li{
+	list-style: none;
+	display: block;
+}
+
+#frm_input_addr ul li > input{
+	width: 300px;
+	height: 32px;
+	margin-top: 9px;
+	margin-left: 10px;
+	font-size: 12.5px;
+	border: 1px solid #D8D8D8;
+	border-radius: 5px;
+}
+
+#frm_input_addr ul li:FIRST-CHILD > input{
+	width: 75px;
+	margin-right: 5px;
+	
+}
+
+/* 우편찾기 */
+#postbtn{
+	width: 70px;
+	height: 27px;
+	margin-left:-1px;
+	cursor: pointer;
+	background: transparent; /* 기본 배경색을 투명화 */
+	background-color: white;
+	outline: 0;
+}
+
+/* phone */
+
+#frm_input_phone ul li{
+	list-style: none;
+	float: left;
+	
+	vertical-align: middle;
+	line-height: 50px;
+}
+
+#frm_input_phone ul li > input,select{
+	width: 75px;
+	height: 32px;
+	margin-top: 7px;
+	margin-left: 7px;
+	margin-right: 7px;
+	font-size: 12.5px;
+	border: 1px solid #D8D8D8;
+	border-radius: 5px;
+}
+
+#frm_input_phone ul li > select{
+	margin-left: 12px;
+}
+
+/* email */
+
+#frm_input_email ul li{
+	list-style: none;
+	float: left;
+	vertical-align: middle;
+	line-height: 50px;
+}
+
+#frm_input_email ul li > input{
+	width: 170px;
+	height: 32px;
+	margin-top: 7px;
+	margin-left: 7px;
+	margin-right: 7px;
+	font-size: 12.5px;
+	border: 1px solid #D8D8D8;
+	border-radius: 5px;
+}
+
+#frm_input_email ul li > input:FIRST-CHILD{
+	margin-left: 12px;
+	margin-right: 9px;
+}
+
+#frm_input_email ul li > selected{
+	width: 110px;
+	height: 32px;
+	margin-top: 7px;
+	margin-left: 7px;
+	font-size: 12.5px;
+	border: 1px solid #D8D8D8;
+	border-radius: 5px;
+}
+
+
+
+/* display: inline-block - 부모요소의 text-align 속성으로 버튼의 정렬 위치를 정할 수 있게 사용한다.
+font-family: inherit - 버튼 요소에 상속되지 않는 글꼴을 강제상속 
+vertical-align: middle - 다른 요소를 만날때 수직 가운데 정렬을 대비
+cursor: pointer - 커서에 손가락 표시
+white-space: nowrap - 버튼의 크기가 작을때 줄바꿈 되지 않는다.
+text-decoration: none - 글자의 밑줄 제거
+background: transparent - 기본 배경색을 투명화
+border: none - 테두리 속성을 초기화한다.
+outline: 0 - 포커스시 생성되는 외곽선 제거 */

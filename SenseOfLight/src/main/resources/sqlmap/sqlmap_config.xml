@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+    
+<configuration>
+	<!-- mybatis로 넘어오는 값이 NULL일 경우 공백으로 처리 -->
+	<!-- default값은 true이다. 아래와 같이 false 설정을 하면 모든 mapper xml의 cache 선언이 무효화가 됨 -->
+    <settings>
+    	<setting name="cacheEnabled" value="false" />
+        <setting name="jdbcTypeForNull" value="NULL" /> 
+    </settings>
+    <typeAliases>
+        <!-- <typeAlias alias="article" type="com.edu.bbs.dto.BBSDto"/> -->
+        <!-- <typeAlias alias="Join" type="light.join.dao.JoinDao"/> -->
+        <typeAlias type="light.common.service.MemberInfo" alias="memberInfo"/>
+        <typeAlias type="light.file.service.FileVo" alias="fileVo"/>
+        <typeAlias type="light.board.service.BoardVo" alias="boardVo"/>
+        <typeAlias type="light.test.TestVo" alias="testVo"/>
+        <typeAlias type="light.img.service.ImgVo" alias="imgVo"/>
+        <typeAlias type="light.cart.service.CartVo" alias="cartVo"/>
+        <typeAlias type="light.order.service.OrderVo" alias="orderVo"/>
+	</typeAliases>
+
+<!--    <mappers>
+        <mapper resource="sqlmap/data/boardMap.xml"/>
+        <mapper resource="sqlmap/data/cartMap.xml"/>
+        <mapper resource="sqlmap/data/commonMap.xml"/>
+        <mapper resource="sqlmap/data/fileMap.xml"/>
+        <mapper resource="sqlmap/data/imageMap.xml"/>
+        <mapper resource="sqlmap/data/joinMap.xml"/>
+        <mapper resource="sqlmap/data/loginMap.xml"/>
+        <mapper resource="sqlmap/data/orderMap.xml"/>
+    </mappers>  --> 
+</configuration>
+

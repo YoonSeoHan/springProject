@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="classpath:/sqlmap/data/loginMap">
+		<resultMap id="loginMemberResult" type="memberInfo">
+		<result property="memNum" column="MEM_NUM" />
+		<result property="memId" column="MEM_ID" />
+		<result property="memPw" column="MEM_PW" />
+		<result property="memName" column="MEM_NAME" />
+		<result property="memPost" column="MEM_POST" />
+		<result property="memAddr1" column="MEM_ADDR1" />
+		<result property="memAddr2" column="MEM_ADDR2" />
+		<result property="memPhone" column="MEM_PHONE" />
+		<result property="memEmail" column="MEM_EMAIL" />
+		<result property="memRegdate" column="MEM_REGDATE" /> 
+		</resultMap>
+		
+		
+		<!-- light.domain.MemberInfo -->
+	<select id="selectLogin" parameterType="String" resultMap="loginMemberResult" resultType="java.util.HashMap">
+		select * from MEMBER where MEM_ID = #{memId};
+	</select>	
+	
+	<update id="imginsert" parameterType="testVo">
+		<!-- insert into sol_db.IMG (IMG_INFO) values (#{infoImg}) -->
+		update sol_db.IMG SET IMG_SORT = #{sortImg} where IMG_LIST = #{listImg};
+	</update>  
+	
+</mapper>

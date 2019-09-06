@@ -1,0 +1,162 @@
+@CHARSET "UTF-8";
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+
+
+#overlay_t {
+	background-color: #000;
+	bottom: 0;
+	left: 0;
+	opacity: 0.5;
+	filter: alpha(opacity = 50); /* IE7 & 8 */
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 99;
+	display: none;
+}
+
+#popup_layer {
+	width: 370px;
+	margin-bottom: 30px;
+	background: #fff;
+	border: solid 0.5px #ccc;
+	position: absolute;
+	top: 260px;
+	left: 50%;
+	margin-left: -230px;
+	box-shadow: 0px 1px 20px #333;
+	z-index: 100;
+	display: none;
+	padding: 40px;
+}
+
+
+input:focus::-webkit-input-placeholder {color: transparent;} /* 크롬 */
+input:focus::-ms-input-placeholder {color: transparent;} /* 익스플로러 */
+ 
+
+
+
+#popup_layer_inner{
+	width:100%;
+	display: inline-block;
+	text-align: center; 
+}
+
+#layer_title{
+	height: 80px;
+	font-size: 28px;
+	font-weight: bold;
+	text-align: left;
+	line-height: 80px;
+	vertical-align: middle; 
+}
+
+#layer_tab{
+	height: 50px;
+	margin-bottom: 20px;
+}
+
+#layer_tab ul li{
+	list-style: none;
+	float: left;
+	border: 1px solid #EAEAEA;
+	line-height: 50px;           
+	vertical-align: middle;      
+	text-align: center;         
+	
+}
+#layer_tab .member_tab{
+	width:183px;
+	color:#A6A6A6;
+	display:block;
+	font-size: 14px;
+}
+
+#layer_login{
+	width: 68%;
+	height: 90px;
+	display:block;
+	float:left;
+}
+
+#layer_login input{
+	float:left;
+	width: 260px;
+	height: 40px;
+}
+
+#layer_login .input_id{
+	margin-bottom: 11px;
+}
+
+#layer_login_btn{
+	height: 90px;
+	float:right;
+	background-color: #F29661;
+	text-align:center;
+	line-height:90px;
+	vertical-align:middle;
+}
+
+#layer_login_btn .member_login{
+	color: white;
+	width: 100px;
+	display:block;
+	font-size: 14px;
+}
+
+#layer_login_save{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	vertical-align: middle;
+	display: inline-block;
+	text-align:left;
+	margin-top:13px;
+	margin-bottom:13px;
+}
+
+#layer_login_save font{
+	color:#A6A6A6;
+	font-size: 12px;
+	vertical-align: 2.5px;
+}
+
+#layer_login_option{
+	height: 50px;
+}
+
+#layer_login_option ul li{
+	
+	margin-right: 5px;
+	list-style: none;
+	float: left;
+	line-height: 50px;
+	vertical-align:middle;
+	text-align:center;
+	border: 1px solid #939393;	
+}
+
+#layer_login_option ul li:LAST-CHILD{
+	margin-right: -5px;
+}
+
+
+#layer_login_option .member_menu{
+	display: block;
+	color:#A6A6A6;
+	font-size: 12px;
+	width:118px;
+	color: #939393;
+	background-color: white;
+}
+
+#layer_login_option .member_menu:HOVER{
+	color: white;
+	background-color: #939393;
+}
+
+
+
+

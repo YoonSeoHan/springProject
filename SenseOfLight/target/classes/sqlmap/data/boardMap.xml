@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="classpath:/sqlmap/data/boardMap">
+	<resultMap id="selectByBoardResult" type="boardVo">
+		<result property="boardSeq" column="BOARD_SEQ" />
+		<result property="boardNum" column="BOARD_NUM" />
+		<result property="productNum" column="PRODUCT_NUM" />
+		<result property="boardWriter" column="BOARD_WRITER" />
+		<result property="boardSubject" column="BOARD_SUBJECT" />
+		<result property="boardContents" column="BOARD_CONTENTS" />
+		<result property="boardOrgContents" column="BOARD_ORGCONTENTS" />
+		<result property="boardEmail" column="BOARD_EMAIL" />
+		<result property="boardCnt" column="BOARD_CNT" />
+		<result property="boardDate" column="BOARD_DATE" />
+		<result property="boardPwd" column="BOARD_PWD" />
+		<result property="grpno" column="GRP_NO" />
+		<result property="grpord" column="GRP_ORD" />
+		<result property="depth" column="GRP_DEPTH" />
+		<result property="firstReple" column="first_Reple" />
+	</resultMap>
+
+	
+	<!-- 게시판 입력 -->
+	<insert id="insertBoard" parameterType="boardVo">
+		insert into BOARD_LIST
+		(BOARD_NUM, 
+		PRODUCT_NUM, 
+		BOARD_WRITER, 
+		BOARD_SUBJECT, 
+		BOARD_CONTENTS, 
+		BOARD_CNT, 
+		BOARD_EMAIL, 
+		BOARD_DATE,
+		BOARD_PWD)
+		values
+		(#{boardNum},
+		#{productNum}, 
+		#{boardWriter}, 
+		#{boardSubject}, 
+		#{boardContents}, 
+		0 , 
+		#{boardEmail}, 
+		now(),
+		#{boardPwd}
+		);
+		
+		UPDATE BOARD_LIST SET GRP_NO = BOARD_SEQ WHERE GRP_NO = 0;
+		SET @COUNT = 0;
+ 		UPDATE BOARD_LIST SET BOARD_NUM = @COUNT:=@COUNT+1 where PRODUCT_NUM = #{productNum} order by GRP_NO ASC,grp_ord DESC;
+	</insert>
+	
+	<!-- 상품의 순번 -->
+	<select id="selectCount"  resultType="int">
+		select count(BOARD_NUM) from BOARD_LIST where PRODUCT_NUM = #{productNum};
+	</select>
+	
+	<!-- 게시판 전체 개수 -->
+	<select id="selectTotalCount" resultType="int">
+		<![CDATA[ 
+		select count(BOARD_NUM) from BOARD_LIST where BOARD_NUM > 0 and PRODUCT_NUM = #{productNum};
+		]]>
+	</select>
+	
+	<!-- 게시판 전체 리스트 -->
+	<select id="selectListBoard" resultMap="selectByBoardResult" resultType="java.util.HashMap">
+		select *
+		from BOARD_LIST where PRODUCT_NUM = #{productNum} order by GRP_NO DESC,grp_ord ASC limit #{pageStart}, #{perPageNum};
+	</select>
+	
+	
+	<!-- 게시판 -->
+	<select id="selectBoard" resultMap="selectByBoardResult" resultType="java.util.HashMap">
+		select * ,(select count(*) from BOARD_LIST where GRP_NO = (select grp_no from board_list where board_Seq = #{boardSeq}))as first_Reple from BOARD_LIST 
+		where BOARD_SEQ = #{boardSeq};
+		
+		update BOARD_LIST set
+		BOARD_CNT = BOARD_CNT + 1
+		where BOARD_Seq = #{boardSeq};
+	</select>
+
+	<!-- 게시판 수정 -->
+	<update id="updateBoard" parameterType="boardVo">
+		update BOARD_LIST set
+		BOARD_WRITER = #{boardWriter},
+		BOARD_SUBJECT = #{boardSubject},
+		BOARD_CONTENTS = #{boardContents},
+		BOARD_EMAIL = #{boardEmail}
+		BOARD_CNT = BOARD_CNT + 1
+		where BOARD_SEQ = #{boardSeq};
+	</update>
+	
+	<!-- 게시판 삭제 -->
+	<delete id="deleteBoard" parameterType="boardVo" >
+		<![CDATA[ 
+		delete from BOARD_LIST where BOARD_SEQ = #{boardSeq};
+		SET @COUNT = 0;
+ 		UPDATE BOARD_LIST SET BOARD_NUM = @COUNT:=@COUNT+1 where PRODUCT_NUM = #{productNum} order by GRP_NO ASC,grp_ord DESC;
+		]]>
+	</delete>
+	
+	<!-- 게시판 댓글 입력 -->
+	<insert id="insertRepleBoard"  parameterType="boardVo">
+		insert BOARD_LIST
+		(BOARD_NUM,
+		PRODUCT_NUM, 
+		BOARD_WRITER, 
+		BOARD_SUBJECT, 
+		BOARD_CONTENTS,
+		BOARd_ORGCONTENTS,
+		BOARD_CNT, 
+		BOARD_EMAIL,
+		BOARD_DATE,
+		BOARD_PWD,
+		GRP_NO,
+		GRP_DEPTH,
+		GRP_ORD)
+		values (#{boardNum},#{productNum}, #{boardWriter}, #{boardSubject}, #{boardContents},#{boardOrgContents}, 0 , #{boardEmail}, now(),
+		#{boardPwd}, #{grpno}, #{depth}+1, #{grpord}+1); 
+		
+		<![CDATA[ 
+		SET @COUNT = 0;
+		UPDATE BOARD_LIST SET BOARD_NUM = @COUNT:=@COUNT+1 where PRODUCT_NUM = #{productNum} order by GRP_NO ASC,grp_ord DESC;
+		]]>
+	</insert>
+	
+	<!-- 댓글 입력시 순서 정리 및 ORD 증가 -->
+	<update id="updateOrder" parameterType="boardVo">
+		<![CDATA[ 
+		update BOARD_LIST SET GRP_ORD = GRP_ORD + 1 where GRP_NO = #{grpno} and GRP_ORD > #{grpord};
+		SET @COUNT = 0;
+		UPDATE BOARD_LIST SET BOARD_NUM = @COUNT:=@COUNT+1 where PRODUCT_NUM = #{productNum} order by GRP_NO ASC,grp_ord DESC;
+		]]>
+	</update>
+	
+	<!-- 게시판 비밀번호 확인 -->
+	<select id="pwdChk" parameterType="map" resultType="int">
+		select EXISTS (select * from BOARD_LIST where BOARD_SEQ=#{boardSeq} and BOARD_PWD = #{pwd}) as success;
+	</select>
+	
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="classpath:/sqlmap/data/joinMap">
+
+	<insert id="insertJoin" parameterType="memberInfo">
+		insert into sol_db.MEMBER (MEM_ID, MEM_PW, MEM_NAME, MEM_POST, MEM_ADDR1, MEM_ADDR2, MEM_PHONE, MEM_EMAIL, MEM_REGDATE)
+		values (#{memId}, #{memPw}, #{memName}, #{memPost}, #{memAddr1}, #{memAddr2}, #{memPhone}, #{memEmail}, now()) 
+
+	</insert> 
+</mapper>
